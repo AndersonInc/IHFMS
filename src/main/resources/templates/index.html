@@ -38,7 +38,9 @@
   <div class="card card-outline card-primary rounded-0 shadow">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Please enter your login credentials</p>
-      <form method="post">
+
+      <!-------------------------------------------------->
+      <form method="post" action="/login">
         <div class="input-group mb-3">
           <input type="text" class="form-control form-control-lg rounded-0 autofocus"
                  placeholder="Username" id="user_name" name="user_name">
@@ -67,11 +69,6 @@
         <div class="row">
           <div class="col-md-12">
             <p class="text-danger">
-              <?php
-              if($message != '') {
-                echo $message;
-              }
-              ?>
             </p>
           </div>
         </div>
