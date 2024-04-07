@@ -6,7 +6,9 @@ import java.util.Date;
 import org.ihfms.ihfms.controllers.dtos.PatientRequest;
 import org.ihfms.ihfms.entity.Gender;
 import org.ihfms.ihfms.entity.PatientType;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DataValidatorImpl implements DataValidator{
 	
 	@Override

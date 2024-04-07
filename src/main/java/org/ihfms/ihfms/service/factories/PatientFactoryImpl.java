@@ -1,33 +1,38 @@
 package org.ihfms.ihfms.service.factories;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.ihfms.ihfms.controllers.dtos.PatientRequest;
+import org.ihfms.ihfms.entity.InPatient;
+import org.ihfms.ihfms.entity.OutPatient;
 import org.ihfms.ihfms.entity.Patient;
 import org.ihfms.ihfms.repositories.PatientRepository;
+import org.ihfms.ihfms.service.BedService;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @RequiredArgsConstructor
+@Service
 public class PatientFactoryImpl implements PatientFactory{
 	private final PatientRepository patientRepository;
+	private final BedService bedService;
 	@Override
 	public void createOutpatient(PatientRequest request) {
-		 var patient = Patient.builder()
-				 .firstName(request.getFirstName())
-				 .lastName(request.getLastName())
-				 .email(request.getEmail())
-				 .phoneNum(request.getPhoneNum())
-				 .admissionDate(request.getAdmissionDate())
-				 .age(request.getAge())
-				 .gender(request.getGender())
-				 .build();
-		 patientRepository.save(patient);
+		 Patient outPatient = new OutPatient(request.getFirstName(), request.getLastName(),
+				 request.getEmail(), request.getPhoneNum(), request.getPhoneNum(),
+				 request.getAdmissionDate(),request.getAge(),request.getGender()
+				 );
+		 patientRepository.save(outPatient);
 	}
 	
 	
 	
 	@Override
-	public void createInPatient(PatientRequest patientRequest) {
+	public void createInPatient(PatientRequest request) {
+		InPatient inPatient = new InPatient(request.getFirstName(), request.getLastName(),
+				request.getEmail(), request.getPhoneNum(), request.getPhoneNum(),
+				request.getAdmissionDate(),request.getAge(),request.getGender()
+		);
+		bedService.assignBedToInpatient(inPatient);
+		patientRepository.save(inPatient);
 	
 	}
 }

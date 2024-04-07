@@ -1,25 +1,33 @@
 package org.ihfms.ihfms.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
-public class User {
+public class Room {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer iD;
-	private String firstName;
-	private String lastName;
-	private String email;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
+	private String roomNumber;
 	
-
+	private int totalBeds;
+	
+	private int availableBeds;
+	
+	@OneToMany(mappedBy = "room")
+	private List<Bed> beds;
+	
 }
+
