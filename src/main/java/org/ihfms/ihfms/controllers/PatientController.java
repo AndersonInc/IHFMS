@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/patient")
 @RequiredArgsConstructor
 public class PatientController {
@@ -26,7 +27,7 @@ public class PatientController {
 	public String createPatient(@RequestBody PatientRequest request)
 	{
 		service.createPatient(request);
-		return null;
+		return "Patient added";
 	}
 
 }

@@ -8,13 +8,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity(name = "beds")
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Bed {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +27,7 @@ public class Bed {
 	private Room room;
 	
 	@OneToOne(mappedBy = "bed")
-	private InPatient inpatient;
+	private Patient inpatient;
 	
 	
 }

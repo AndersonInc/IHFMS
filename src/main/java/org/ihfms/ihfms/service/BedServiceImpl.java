@@ -3,6 +3,7 @@ package org.ihfms.ihfms.service;
 import lombok.AllArgsConstructor;
 import org.ihfms.ihfms.entity.Bed;
 import org.ihfms.ihfms.entity.InPatient;
+import org.ihfms.ihfms.entity.Patient;
 import org.ihfms.ihfms.entity.Room;
 import org.ihfms.ihfms.repositories.BedRepository;
 import org.ihfms.ihfms.repositories.RoomRepository;
@@ -18,8 +19,9 @@ public class BedServiceImpl implements BedService{
 	private final BedObserver bedObserver;
 	
 	@Override
-	public Bed assignBedToInpatient(InPatient inpatient) {
+	public Bed assignBedToInpatient(Patient inpatient) {
 		Room room = roomRepository.findFirstByAvailableBedsGreaterThan(0);
+		System.out.println("Found some beds "+room);
 		if (room != null) {
 			Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
 			if (bed != null) {
