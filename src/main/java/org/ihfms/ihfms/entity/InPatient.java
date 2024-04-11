@@ -20,9 +20,5 @@ public class InPatient extends Patient{
 	@OneToOne
 	@JoinColumn(name = "bed_id")
 	private Bed bed;
-	
-//	public InPatient(String firstName, String lastName, String email,
-//			String phoneNum, String phoneNum1, LocalDate admissionDate,
-//			int age, Gender gender) {
-//	}
+
 }

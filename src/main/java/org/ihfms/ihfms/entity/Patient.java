@@ -36,17 +36,8 @@ public  class Patient {
 	@Enumerated(EnumType.STRING)
 	private PatientType patientType;
 	
-	private String roomNumber;
-	
-	@OneToOne
-	@JoinColumn(name = "bed_id")
-	private Bed bed;
-	
 	public Patient() {
-	
+
 	}
 	
-	//	public Patient(String firstName, String lastName, String email, String phoneNum,
-//			String phoneNum1, LocalDate admissionDate, int age, Gender gender) {
-//	}
 }

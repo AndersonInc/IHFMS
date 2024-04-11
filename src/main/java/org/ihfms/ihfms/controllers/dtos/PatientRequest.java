@@ -13,7 +13,6 @@ import org.ihfms.ihfms.entity.Gender;
 import org.ihfms.ihfms.entity.PatientType;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientRequest {

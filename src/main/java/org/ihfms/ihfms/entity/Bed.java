@@ -7,11 +7,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "beds")
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Bed {
 	@Id
@@ -27,7 +29,7 @@ public class Bed {
 	private Room room;
 	
 	@OneToOne(mappedBy = "bed")
-	private Patient inpatient;
+	private InPatient inpatient;
 	
 	
 }

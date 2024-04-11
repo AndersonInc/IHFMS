@@ -3,9 +3,9 @@ package org.ihfms.ihfms.service;
 import lombok.AllArgsConstructor;
 import org.ihfms.ihfms.entity.Bed;
 import org.ihfms.ihfms.entity.InPatient;
-import org.ihfms.ihfms.entity.Patient;
 import org.ihfms.ihfms.entity.Room;
 import org.ihfms.ihfms.repositories.BedRepository;
+import org.ihfms.ihfms.repositories.PatientRepository;
 import org.ihfms.ihfms.repositories.RoomRepository;
 import org.ihfms.ihfms.service.factories.observer.BedObserver;
 import org.springframework.stereotype.Component;
@@ -17,24 +17,28 @@ public class BedServiceImpl implements BedService{
 	private final RoomRepository roomRepository;
 	private final BedRepository bedRepository;
 	private final BedObserver bedObserver;
+	private final PatientRepository patientRepository;
 	
 	@Override
-	public Bed assignBedToInpatient(Patient inpatient) {
+	public Bed assignBedToInpatient(InPatient inpatient) {
 		Room room = roomRepository.findFirstByAvailableBedsGreaterThan(0);
-		System.out.println("Found some beds "+room);
-		if (room != null) {
-			Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
-			if (bed != null) {
-				bed.setOccupied(true);
-				bed.setInpatient(inpatient);
-				inpatient.setBed(bed);
-				room.setAvailableBeds(room.getAvailableBeds() - 1);
-				bed.setBedNumber(generateBedNumber(room, bed));
-				bedRepository.save(bed);
-				roomRepository.save(room);
-				bedObserver.notifyObservers(bed);
-				return bed;
-			}
+		System.out.println("Found some rooms "+room.getRoomNumber());
+		Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
+		if (bed != null) {
+			bed.setOccupied(true);
+			bed.setInpatient(inpatient);
+			inpatient.setBed(bed);
+			room.setAvailableBeds(room.getAvailableBeds() - 1);
+			bed.setBedNumber(generateBedNumber(room, bed));
+			//inpatient.setBed(bed);
+			inpatient.setRoomNumber(room.getRoomNumber());
+			System.out.println("Found some beds "+bed.getBedNumber());
+			patientRepository.save(inpatient);
+			bedRepository.save(bed);
+			roomRepository.save(room);
+			System.out.println("saved the patient: "+inpatient);
+			bedObserver.notifyObservers(bed);
+			return bed;
 		}
 		return null;
 	}
