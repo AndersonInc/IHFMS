@@ -19,32 +19,34 @@ public class BedServiceImpl implements BedService{
 	private final BedObserver bedObserver;
 	private final PatientRepository patientRepository;
 	
+	
 	@Override
 	public Bed assignBedToInpatient(InPatient inpatient) {
 		Room room = roomRepository.findFirstByAvailableBedsGreaterThan(0);
-		System.out.println("Found some rooms "+room.getRoomNumber());
-		Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
-		if (bed != null) {
-			bed.setOccupied(true);
-			bed.setInpatient(inpatient);
-			inpatient.setBed(bed);
-			room.setAvailableBeds(room.getAvailableBeds() - 1);
-			bed.setBedNumber(generateBedNumber(room, bed));
-			//inpatient.setBed(bed);
-			inpatient.setRoomNumber(room.getRoomNumber());
-			System.out.println("Found some beds "+bed.getBedNumber());
-			patientRepository.save(inpatient);
-			bedRepository.save(bed);
-			roomRepository.save(room);
-			System.out.println("saved the patient: "+inpatient);
-			bedObserver.notifyObservers(bed);
-			return bed;
-		}
-		return null;
+		//System.out.println("Found "+bed.getBedNumber()+ "in "+room.getRoomNumber());
+		if (room != null){
+			System.out.println("Found some rooms "+room.getRoomNumber());
+			Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
+			if (bed != null) {
+				bed.setOccupied(true);
+				bed.setInpatient(inpatient);
+				inpatient.setBed(bed);
+				room.setAvailableBeds(room.getAvailableBeds() - 1);
+				bed.setBedNumber(generateBedNumber(room, bed));
+				inpatient.setRoomNumber(room.getRoomNumber());
+				System.out.println("Found some beds, assigned somebody a bed!");
+				patientRepository.save(inpatient);
+				bedRepository.save(bed);
+				roomRepository.save(room);
+				System.out.println("saved the patient: "+inpatient);
+				bedObserver.notifyObservers(bed);
+				return bed;
+			}
+		}return null;
 	}
 	
 	
-	// Helper method to generate bed number
+	
 	private String generateBedNumber(Room room, Bed bed) {
 		return room.getRoomNumber() + "-" + (room.getTotalBeds() -
 				room.getAvailableBeds() + 1);
