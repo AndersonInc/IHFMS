@@ -3,19 +3,26 @@ package org.ihfms.ihfms.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.ihfms.ihfms.finance.models.Invoice;
+import org.ihfms.ihfms.finance.models.Payment;
 
 @RequiredArgsConstructor
 @Entity
 public class OutPatient extends Patient{
 	
-	public OutPatient(String firstName, String lastName, String email,
-			String phoneNum, String phoneNum1, LocalDate admissionDate,
-			int age, Gender gender) {
-	}
+	@OneToOne
+	@JoinColumn(name = "invoice_id")
+	private Invoice invoice;
 	
-	public OutPatient(Patient patient) {
-	}
+	@OneToOne
+	@JoinColumn(name = "payment_id")
+	private Payment payment;
+	
+//	public OutPatient(Patient patient) {
+//	}
 }
