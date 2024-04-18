@@ -1,6 +1,5 @@
 package org.ihfms.ihfms.messagingmodule.messageobservable;
 
-
 import org.ihfms.ihfms.messagingmodule.messagemodel.ChatMessage;
 import org.ihfms.ihfms.messagingmodule.messageobserver.ChatObserver;
 import org.springframework.stereotype.Component;

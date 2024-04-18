@@ -26,7 +26,8 @@ public class BedServiceImpl implements BedService{
 		//System.out.println("Found "+bed.getBedNumber()+ "in "+room.getRoomNumber());
 		if (room != null){
 			System.out.println("Found some rooms "+room.getRoomNumber());
-			Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).findFirst().orElse(null);
+			Bed bed = room.getBeds().stream().filter(b -> !b.isOccupied()).
+					findFirst().orElse(null);
 			if (bed != null) {
 				bed.setOccupied(true);
 				bed.setInpatient(inpatient);

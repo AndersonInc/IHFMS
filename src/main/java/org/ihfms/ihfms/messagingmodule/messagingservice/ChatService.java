@@ -1,6 +1,5 @@
 package org.ihfms.ihfms.messagingmodule.messagingservice;
 
-
 import org.ihfms.ihfms.messagingmodule.messagemodel.ChatMessage;
 import org.ihfms.ihfms.messagingmodule.messageobserver.ChatObserver;
 import org.ihfms.ihfms.messagingmodule.messagerepo.MessageRepo;
