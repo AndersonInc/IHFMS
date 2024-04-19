@@ -2,6 +2,7 @@ package org.ihfms.ihfms.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,10 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
+import org.ihfms.ihfms.finance.models.Invoice;
+import org.ihfms.ihfms.finance.models.Payment;
 
 @Entity()
 @Data
@@ -33,6 +37,14 @@ public  class Patient {
 	private LocalDate admissionDate;
 	@Enumerated(EnumType.STRING)
 	private PatientType patientType;
+	
+	@OneToOne
+	@JoinColumn(name = "invoice")
+	private Invoice invoice;
+	
+	@OneToOne
+	@JoinColumn(name = "payment")
+	private Payment payment;
 	
 	public Patient() {
 

@@ -8,6 +8,7 @@ import org.ihfms.ihfms.repositories.BedRepository;
 import org.ihfms.ihfms.repositories.PatientRepository;
 import org.ihfms.ihfms.repositories.RoomRepository;
 import org.ihfms.ihfms.service.factories.observer.BedObserver;
+import org.ihfms.ihfms.service.observers.PatientObserver;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
@@ -18,6 +19,7 @@ public class BedServiceImpl implements BedService{
 	private final BedRepository bedRepository;
 	private final BedObserver bedObserver;
 	private final PatientRepository patientRepository;
+	private final PatientObserver patientObserver;
 	
 	
 	@Override
@@ -40,6 +42,7 @@ public class BedServiceImpl implements BedService{
 				bedRepository.save(bed);
 				roomRepository.save(room);
 				System.out.println("saved the patient: "+inpatient);
+				patientObserver.update(inpatient,bed,room);
 				bedObserver.notifyObservers(bed);
 				return bed;
 			}
@@ -63,7 +66,9 @@ public class BedServiceImpl implements BedService{
 			room.setAvailableBeds(room.getAvailableBeds() + 1);
 			bedRepository.save(bed);
 			roomRepository.save(room);
-			bedObserver.notifyObservers(bed);
+			patientObserver.update(inpatient,bed,room);
+			//bedObserver.notifyObservers(bed);
+			
 		}
 	
 	}

@@ -1,5 +1,8 @@
 package org.ihfms.ihfms.finance.models;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class FactoryImpl implements Factory{
 	
 	@Override

@@ -13,8 +13,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.ihfms.ihfms.entity.InPatient;
-import org.ihfms.ihfms.entity.OutPatient;
+import org.ihfms.ihfms.entity.Patient;
 
 @Entity
 @Data
@@ -34,10 +33,5 @@ public class Invoice {
 	private InvoiceStatus status;
 	
 	@OneToOne(mappedBy = "invoice", cascade = CascadeType.ALL)
-	private InPatient inPatient;
-	
-	@OneToOne(mappedBy = "invoice", cascade = CascadeType.ALL)
-	private OutPatient outPatient;
-	
-	
+	private Patient patient;
 }

@@ -11,8 +11,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.ihfms.ihfms.entity.InPatient;
-import org.ihfms.ihfms.entity.OutPatient;
+import org.ihfms.ihfms.entity.Patient;
 
 @Entity
 @Data
@@ -28,9 +27,6 @@ public class Payment {
 	private LocalDate paymentDate;
 	
 	@OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-	private InPatient inPatient;
-	
-	@OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-	private OutPatient outPatient;
+	private Patient patient;
 	
 }
